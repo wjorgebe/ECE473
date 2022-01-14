@@ -13,7 +13,7 @@ def findAlphabeticallyLastWord(text):
     You might find max() and list comprehensions handy here.
     """
     # BEGIN_YOUR_CODE (our solution is 1 line of code, but don't worry if you deviate from this)
-    raise Exception("Not implemented yet")
+    return max(text.split())
     # END_YOUR_CODE
 
 ############################################################
@@ -25,7 +25,7 @@ def euclideanDistance(loc1, loc2):
     are pairs of numbers (e.g., (3, 5)).
     """
     # BEGIN_YOUR_CODE (our solution is 1 line of code, but don't worry if you deviate from this)
-    raise Exception("Not implemented yet")
+    return math.sqrt(((loc2[0]-loc1[0])**2)+((loc2[1]-loc1[1])**2))
     # END_YOUR_CODE
 
 ############################################################
@@ -51,7 +51,10 @@ def mutateSentences(sentence):
                 (reordered versions of this list are allowed)
     """
     # BEGIN_YOUR_CODE (our solution is 21 lines of code, but don't worry if you deviate from this)
-    raise Exception("Not implemented yet")
+    sentence_list = sentence.split()
+
+    for i in sentence_list:
+
     # END_YOUR_CODE
 
 ############################################################
@@ -65,7 +68,7 @@ def sparseVectorDotProduct(v1, v2):
     This function will be useful later for linear classifiers.
     """
     # BEGIN_YOUR_CODE (our solution is 1 line of code, but don't worry if you deviate from this)
-    raise Exception("Not implemented yet")
+    return sum([v1[i] * v2[i] for i in list(v1.keys())])
     # END_YOUR_CODE
 
 ############################################################
@@ -77,7 +80,8 @@ def incrementSparseVector(v1, scale, v2):
     This function will be useful later for linear classifiers.
     """
     # BEGIN_YOUR_CODE (our solution is 2 lines of code, but don't worry if you deviate from this)
-    raise Exception("Not implemented yet")
+    for i in list(v2.keys()):
+        v1[i] += v2[i] * 2
     # END_YOUR_CODE
 
 ############################################################
@@ -90,7 +94,12 @@ def findSingletonWords(text):
     You might find it useful to use collections.defaultdict(int).
     """
     # BEGIN_YOUR_CODE (our solution is 4 lines of code, but don't worry if you deviate from this)
-    raise Exception("Not implemented yet")
+    text_list = text.split()
+    occurrences = []
+    for i in text_list:
+        occurrences.append(text_list.count(i))
+    d = dict(zip(text_list, occurrences))
+    return set([i for i in d.keys() if d[i] is 1])
     # END_YOUR_CODE
 
 ############################################################
@@ -112,9 +121,9 @@ def computeLongestPalindromeLength(text):
 
 
     FOR HOMEWORK 1, you may write a recursive version as described above.
-    FOR HOMEWORK 2, you will have to write the non-recursive version described next, 
+    FOR HOMEWORK 2, you will have to write the non-recursive version described next,
     which you can go ahead and do now if you understand how:
-    
+
     Instead of writing a recursive function to find lpl (the most
     straightforward way of implementation has exponential running time
     due to repeated computation of the same subproblems), start by
