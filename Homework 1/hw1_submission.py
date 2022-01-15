@@ -52,10 +52,49 @@ def mutateSentences(sentence):
     """
     # BEGIN_YOUR_CODE (our solution is 21 lines of code, but don't worry if you deviate from this)
     sentence_list = sentence.split()
+    sentence_lenght = len(sentence_list)
+    mutated_list = []
+    final_list = []
+    return_list = []
 
+    d = collections.defaultdict(list, {})
+    counter = 0
     for i in sentence_list:
+        if counter < len(sentence_list) - 1:
+            d[i].append(sentence_list[counter + 1])
+            #print(d[i])
+        else:
+            d[i].append([])
+        counter += 1
 
+    for key in d.keys():
+        new_sentence = []
+        for value in d[key]:
+            mutateRecurse(new_sentence+[value], key, sentence_lenght, mutated_list, d)
+
+    for i in mutated_list:
+        joined_sentence = " ".join(i)
+        final_list.append(joined_sentence)
+
+    for i in final_list:
+        if final_list.count(i) == 1 and len(i) == sentence_lenght:
+            return_list.append(i)
+
+    return return_list
     # END_YOUR_CODE
+
+def mutateRecurse(new_sentence, key, sentence_lenght, mutated_list, d):
+    if len(new_sentence) >= sentence_lenght:
+        mutated_list.append(new_sentence)
+        return
+    elif key not in d.keys():
+        return
+    else:
+        for value in d[key]:
+            temp = new_sentence
+            temp.append(value)
+            mutateRecurse(temp, value, sentence_lenght, mutated_list, d)
+    return
 
 ############################################################
 # Problem 3d
@@ -99,7 +138,7 @@ def findSingletonWords(text):
     for i in text_list:
         occurrences.append(text_list.count(i))
     d = dict(zip(text_list, occurrences))
-    return set([i for i in d.keys() if d[i] is 1])
+    return set([i for i in d.keys() if d[i] == 1])
     # END_YOUR_CODE
 
 ############################################################
@@ -131,5 +170,18 @@ def computeLongestPalindromeLength(text):
     up in the increasing order of substring length.
     """
     # BEGIN_YOUR_CODE (our non-recursive solution is 13 lines of code, but don't worry if you deviate from this)
-    raise Exception("Not implemented yet")
+    str_length = len(text)
+    palindrome = []
+
+    for i in range(str_length, 0, -1):
+        flag = False
+        for j in range(str_length - i + 1):
+            target = text[j:j+i]
+            if target == target[::-1]:
+                palindrome.append(text[j:j+i])
+                flag = True
+        if flag:
+            break
+
+    return len(palindrome)
     # END_YOUR_CODE
